@@ -2,11 +2,22 @@
 
 Autor: Pablo Giudice
 
+
+
 ## Objetivo
 
 El objetivo de la aplicación es detectar si cierta matriz de ADN corresponde al de un humano o al de un mutante. 
 
-Se dice que el ADN es de un mutante si posee más de una secuencia de 4 caracteres (A, C, G, T).
+Una matriz de ADN tiene una forma como la siguiente: 
+
+````
+CGTG
+GTAG
+GGTT
+ATTT
+````
+
+Se dice que el ADN es de un mutante si posee más de una secuencia de 4 caracteres iguales (A, C, G, T).
 
 
 
@@ -16,11 +27,11 @@ El proyecto contiene un servidor web REST basado en Spring Boot.
 
 Los mensajes que procesa son dos: 
 
-- POST /mutant 
+- POST /mutant , que recibe un json como el siguiente
 
    ````
    {
-       dna: ["AAAA", "ATCG", "GTCA", "GGGG"]
+       "dna" : ["AAAA", "ATCG", "GTCA", "GGGG"]
    }
    ````
 
@@ -51,6 +62,14 @@ Configuración:
   - Sin load balancer (no está en el Free Tier :( 
 - Database: 
   - MySQL en db.t2.micro (Amazon RDS)
+
+## Escalabilidad
+
+Hice pruebas usando www.loader.io y logré servir hasta 1000 peticiones por minuto. Al intentar elevar el número a 10k peticiones, el numero de timeouts de red hace que los tests falle. La forma de solucionar esto es:
+
+- incrementar el poder de cómputo de las [instancias](https://aws.amazon.com/ec2/instance-types/) (large/xlarge) 
+- agregar más instancias (y un load balancer)
+- crear workers para la escritura a la base de datos.
 
 
 
