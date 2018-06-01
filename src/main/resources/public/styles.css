@@ -9,6 +9,14 @@
     transition: 0.3s;
 }
 
-.text_area{
-    height: 200px;
+textarea{
+    width: 100%;
+    white-space: nowrap;
+    font-family: monospace;
+}
+.block {
+    background-color: lightgoldenrodyellow;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
 }

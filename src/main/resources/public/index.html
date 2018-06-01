@@ -25,29 +25,32 @@
             <!-- Analizar un nuevo ADN -->
             <div class="group">
                 <h2>Analizar un nuevo ADN</h2>
-                <form>
-                    <p>Ejemplos</p>
+                <div class="block">
+                    <h4>Ejemplos</h4>
+                    <p>Puede elegir un ADN de prueba o crear uno aleatorio.
+                     Recuerde que la matriz de ADN tiene que ser cuadrada.</p>
                     <input type="radio" name="sample" ng-click="setCurrentDNA(sample_dna_human); isMutantResult = null" checked> ADN Humano<br>
                     <input type="radio" name="sample" ng-click="setCurrentDNA(sample_dna_mutant); isMutantResult = null"> ADN Mutante<br>
                     <input type="radio" name="sample" ng-click="setCurrentDNA(sample_dna_mutant_2); isMutantResult = null"> ADN Mutante 2<br>
-                    <input type="text" ng-model="randomSize">
+                    Tamaño: <input type="text" ng-model="randomSize" pattern="[0-9]*" >
                     <input type="button" value="aleatorio" ng-click="setRandomDNA(); isMutantResult = null;">
-                </form>
-                <span>
-                    <textarea class="text_area" ng-model="current_dna" ng-list="&#10;" ng-trim="false"></textarea>    
-                </span>
-                <p><input class="button" type="button" value="Verificar ADN" ng-click="isMutant()"></p>
-
+                </div>
+                <div class="block" style="background-color: lightgreen">
+                    <textarea class="text_area" ng-model="current_dna" ng-list="&#10;" ng-trim="false" width="300px"></textarea>    
+                    <p><input class="button" type="button" value="Verificar ADN" ng-click="isMutant()"></p>
+                </div>
                 <div ng-if="isMutantResult != null">
                     Resultado:
                     <span ng-if="isMutantResult === 'mutante'" style="color:green;">Es mutante</span>
                     <span ng-if="isMutantResult === 'humano'" style="color:blue;">Es humano</span>
                     <span ng-if="isMutantResult === 'error'" style="color:red;">Error</span>
                     <p><i>Recibido: {{last_transaction_time_is_mutant}}</i></p>
+                    
+                    <span ng-if="isMutantResult == null">
+                        Ingrese un ADN válido y haga click en el botón "Verificar ADN"
+                    </span>
                 </div>
-                <span ng-if="isMutantResult == null">
-                    Ingrese un ADN válido y haga click en el botón "Verificar ADN"
-                </span>
+                
             </div>
 
             <!-- Estadisticas -->

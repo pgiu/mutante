@@ -87,7 +87,13 @@ app.controller('MutanteController', function ($scope, $http, $location) {
     }
 
     $scope.setRandomDNA = function () {
-        var n = $scope.randomSize;
+        
+        var n = parseInt($scope.randomSize);
+        if (isNaN(n)) { 
+            alert("Ingrese un número");
+            return;
+        }
+        
         $scope.current_dna = [];
 
         for (var i = 0; i < n; i++) {
