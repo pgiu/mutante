@@ -171,6 +171,11 @@ public class Mutante {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     /**
+     * Tamaño máximo de la matriz de ADN
+     */
+    private static final int MAX_DNA_SIZE = 1000;
+    
+    /**
      * Largo de la cadena para ser considerada mutante.
      */
     private static final int SEQUENCE_LENGTH = 4;
@@ -300,6 +305,10 @@ public class Mutante {
         }
 
         int nrows = dna.length;
+        
+        if (nrows > MAX_DNA_SIZE){
+            return false;
+        }
 
         // No tiene sentido buscar en una matriz que tenga menos que el tamaño mínimo
         if (nrows < SEQUENCE_LENGTH) {
