@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>    
+        <script src="script.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container" ng-app="myApp" ng-controller="MutanteController">
+            <div class="group">
+                <h2>Desafío MercadoLibre <img src="logo.png" height="70" width="100"></h2>
+                <p>Este es un front-end para mostrar el funcionamiento del back-end que analiza una secuencia de ADN 
+                    y determina si corresponde a la de un humano o un mutante.</p>
+                <p>
+                    Se dice que una matriz de ADN corresponde a un mutante, si tiene más de una secuencia de 4 bases nitrogenadas iguales. 
+                    (ej: AAAA, CCCC, etc.) tanto en sentido horizontal, vertical o diagonal.
+                </p>
+                <p>Autor: <a href="https://www.linkedin.com/in/pablogiudice">Pablo Giudice</a></p>
+                <p>Código fuente disponible <a href="https://github.com/pgiu/mutante">en GitHub</a></p>
+            </div>
+            <!-- Analizar un nuevo ADN -->
+            <div class="group">
+                <h2>Analizar un nuevo ADN</h2>
+                <form>
+                    <p>Ejemplos</p>
+                    <input type="radio" name="sample" ng-click="setCurrentDNA(sample_dna_human); isMutantResult = null" checked> ADN Humano<br>
+                    <input type="radio" name="sample" ng-click="setCurrentDNA(sample_dna_mutant); isMutantResult = null"> ADN Mutante<br>
+                    <input type="radio" name="sample" ng-click="setCurrentDNA(sample_dna_mutant_2); isMutantResult = null"> ADN Mutante 2<br>
+                    <input type="text" ng-model="randomSize">
+                    <input type="button" value="aleatorio" ng-click="setRandomDNA(); isMutantResult = null;">
+                </form>
+                <span>
+                    <textarea class="text_area" ng-model="current_dna" ng-list="&#10;" ng-trim="false"></textarea>    
+                </span>
+                <p><input class="button" type="button" value="Verificar ADN" ng-click="isMutant()"></p>
+
+                <div ng-if="isMutantResult != null">
+                    Resultado:
+                    <span ng-if="isMutantResult === 'mutante'" style="color:green;">Es mutante</span>
+                    <span ng-if="isMutantResult === 'humano'" style="color:blue;">Es humano</span>
+                    <span ng-if="isMutantResult === 'error'" style="color:red;">Error</span>
+                    <p><i>Recibido: {{last_transaction_time_is_mutant}}</i></p>
+                </div>
+                <span ng-if="isMutantResult == null">
+                    Ingrese un ADN válido y haga click en el botón "Verificar ADN"
+                </span>
+            </div>
+
+            <!-- Estadisticas -->
+            <div class="group">
+                <h2>Estadísticas</h2>
+
+                <table class="table">
+                    <tr><td>Cantidad de mutantes</td><td>{{cont_mutantes}}</td></tr>
+                    <tr><td>Cantidad de humanos</td><td>{{cont_humanos}}</td></tr>
+                    <tr><td>Razón</td><td>{{ratio| number:3}}</td></tr>
+                </table>
+
+                <input class="button" type="button" value="Actualizar estadísticas" ng-click="getStats()">
+                <p><i>Recibido: {{last_transaction_time_stats}}</i></p>
+            </div>
+        </div>
+    </body>
+</html>
