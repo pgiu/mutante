@@ -2,6 +2,7 @@
 
 Autor: Pablo Giudice
 
+[![Build Status](https://travis-ci.org/pgiu/mutante.svg?branch=master)](https://travis-ci.org/pgiu/mutante)
 
 
 ## Objetivo
