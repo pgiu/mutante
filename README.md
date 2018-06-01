@@ -62,11 +62,12 @@ int searchUsingStrategy(String[] dna, Start startDimension, Direction direction,
     return sequenceCount;
 }
 ```
-La función se llama entonces con todas las combinaciones posibles de ``startDimension ` y `direction`.
+
+La función se llama entonces con todas las combinaciones posibles de `startDimension` y `direction`.
 
 A continuación, un diagrama de las posibles búsquedas. Los casos de búsqueda vertical y horizontal son los más fáciles. Para los de búsqueda diagonal (hacia arriba y abajo) opté por desdoblarlas en dos búsquedas. Por ejemplo, para cubrir la diagonal hacia abajo, uno puede empezar por el lateral izquierdo (left) o el superior (top). Es importante manejar bien los índices para no contar dos veces la diagonal.
 
-![Estrategias de búsqueda](D:\Dropbox\code\MutanteApp\estrategias.png)
+![Estrategias de búsqueda](estrategias.png)
 
 
 
