@@ -11,7 +11,7 @@
 
 textarea{
     width: 100%;
-    white-space: nowrap;
+    height: 200px;
     font-family: monospace;
 }
 .block {

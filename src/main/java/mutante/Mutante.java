@@ -12,14 +12,23 @@ import javax.persistence.Transient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * En que dirección buscar.
+ */
 enum Direction {
     DIR_DOWN, DIR_RIGHT, DIR_DIAG_DOWN, DIR_DIAG_UP
 }
 
+/**
+ * Este enum se usa para saber desde que lado de la matriz se hace la búsqueda.
+ */
 enum Start {
     TOP, LEFT, BOTTOM
 }
 
+/**
+ * Clase que agrupa un lado de inicio (Start) y una dirección (Direction)
+ */
 class SearchStrategy {
 
     final Start start;
@@ -29,17 +38,16 @@ class SearchStrategy {
         this.start = start;
         this.direction = direction;
     }
-
-    public Start getStart() {
-        return start;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
 }
 
+/**
+ * Permite iterar una matriz de ADN. Ejemplo de forma de uso. Esto imprime todos
+ * los caracteres en una dirección de búsqueda
+ *
+ * DnaIterator d = new DnaIterator(dna, Start.LEFT, Direction.DIR_RIGHT) do {
+ * Character c; while((c=d.getNext()!=null){ System.out.println(c); }
+ * }while(d.nextStartDimension)
+ */
 class DnaIterator {
 
     private final String[] dna;
@@ -48,22 +56,6 @@ class DnaIterator {
     private int rowStart, colStart;
     Start start;
     Direction direction;
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
-    }
 
     public DnaIterator(String[] dna, Start start, Direction direction) {
         this.dna = dna;
@@ -96,19 +88,22 @@ class DnaIterator {
             col = colStart;
             return colStart < n;
             //TODO que pasa si asigno col a un valor mayor a N y alguien llama getValue()
-        } else if (start == Start.LEFT) {
-            col = 0;
-            rowStart++;
-            row = rowStart;
-            return rowStart < n;
         }
-        return false;
+        // else if (start == Start.LEFT) {
+        col = 0;
+        rowStart++;
+        row = rowStart;
+        return rowStart < n;
+
     }
 
     /**
-     * Devuelve el valor en (row, col)
+     * @return el valor en (row, col) o null si r,c es invalido
      */
     Character getValue() {
+        if (row < 0 || row > n || col < 0 || col > n) {
+            return null;
+        }
         return dna[row].charAt(col);
     }
 
@@ -173,8 +168,8 @@ public class Mutante {
     /**
      * Tamaño máximo de la matriz de ADN
      */
-    private static final int MAX_DNA_SIZE = 1000;
-    
+    public static final int MAX_DNA_SIZE = 1000;
+
     /**
      * Largo de la cadena para ser considerada mutante.
      */
@@ -305,8 +300,8 @@ public class Mutante {
         }
 
         int nrows = dna.length;
-        
-        if (nrows > MAX_DNA_SIZE){
+
+        if (nrows > MAX_DNA_SIZE) {
             return false;
         }
 

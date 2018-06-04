@@ -58,6 +58,7 @@ public class MutanteController {
             } else {
                 isMutant = m.isMutant(dnaArray);
                 mutanteRepository.save(m);
+                log.info("Saved to db");
             }
 
             // Si es un mutante, devolver 200-OK

@@ -43,7 +43,7 @@ public class MutanteTest {
             "TTGAT",
             "TGCGA"
         }, true));
-        
+
         trueCases.add(new TestCase("4x4 1H 1V", new String[]{
             "CCCC",
             "CGTC",
@@ -116,14 +116,14 @@ public class MutanteTest {
             "TTCAA",
             "TGCGA"
         }, true));
-        
+
         trueCases.add(new TestCase("4x4 todos iguales", new String[]{
             "AAAA",
             "AAAA",
             "AAAA",
             "AAAA"
         }, true));
-        
+
         trueCases.add(new TestCase("4x4 4 iguales", new String[]{
             "AAAA",
             "GGGG",
@@ -132,10 +132,6 @@ public class MutanteTest {
         }, true));
 
         falseCases = new ArrayList<>();
-
-        falseCases.add(new TestCase("null",
-                null,
-                false));
 
         falseCases.add(new TestCase("1x1", new String[]{
             "C"
@@ -150,17 +146,6 @@ public class MutanteTest {
             "CGT",
             "TCT",
             "GGG"
-        }, false));
-
-        falseCases.add(new TestCase("4x4", new String[]{
-            "CAGTCAGT",
-            "GTCAGTCA",
-            "CAGTCAGT",
-            "GTCAGTCA",
-            "CAGTCAGT",
-            "GTCAGTCA",
-            "CAGTCAGT",
-            "GTCAGTCA"
         }, false));
 
         falseCases.add(new TestCase("8x8", new String[]{
@@ -334,13 +319,43 @@ public class MutanteTest {
      * Test input size
      */
     @Test
-    public void testIsInputSizeValid() {
+    public void testIsInputValid() {
         System.out.println("isInputSizeValid");
-        String[] dna = {"a", "ab"};
-        Mutante instance = new Mutante();
-        boolean expResult = false;
-        boolean result = instance.isInputSizeValid(dna);
-        assertEquals(expResult, result);
+        ArrayList<TestCase> malformedInput = new ArrayList<>();
+        malformedInput.add(new TestCase("tamanio invalido", new String[]{
+            "CAGT",
+            "CCCC",
+            "GTCA",
+            "CCA"
+        }, false));
+
+        malformedInput.add(new TestCase("caracteres en minusculas", new String[]{
+            "cgat",
+            "ttta",
+            "ggtt",
+            "aacc"
+        }, false));
+
+        malformedInput.add(new TestCase("caracteres invalidos", new String[]{
+            "abcd",
+            "efgh",
+            "ijkd",
+            "mnop"
+        }, false));
+
+        malformedInput.add(new TestCase("3x4 tamanio invalido", new String[]{
+            "abcd",
+            "efgh",
+            "ijkd"
+        }, false));
+
+        falseCases.add(new TestCase("null input",
+                null,
+                false));
+        malformedInput.add(new TestCase("Tamano mayor que el maximo",
+                createBigFalseCase(Mutante.MAX_DNA_SIZE + 1),
+                false));
+        runCases(malformedInput);
     }
 
 }
