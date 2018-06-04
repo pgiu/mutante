@@ -150,6 +150,10 @@ class DnaIterator {
     }
 }
 
+/**
+ * Clase que guarda el adn y si es mutante o no. Posee el metodo isMutant, que
+ * aplica el algoritmo de búsqueda a una secuencia de adn nueva.
+ */
 @Entity
 public class Mutante {
 
@@ -157,6 +161,10 @@ public class Mutante {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    /**
+     * El tamaño de este campo depende de MAX_DNA_SIZE. Cambiar los dos en
+     * simultaneo.
+     */
     @Column(length = 1000000)
     private String[] dna;
 
@@ -187,7 +195,9 @@ public class Mutante {
     /**
      * Funcion principal de la clase. Se encarga de verificar si el ADN que se
      * le pasa, corresponde al de un humano o al de un mutante. Para ser
-     * considerado
+     * considerado mutante, tiene que tener más de una secuencia de 4
+     * caracteres. La secuencia puede estar en sentido horizontal, vertical u
+     * oblicuo.
      *
      * @param dna el ADN a verificar
      */
@@ -202,7 +212,7 @@ public class Mutante {
             return false;
         }
 
-        // Buscar si es mutante o no
+        // Buscar si es mutante o no y guardarlo como propiedad
         this.isMutantValue = searchInAllDirections(dna);
 
         return isMutantValue;
@@ -232,10 +242,12 @@ public class Mutante {
      * Hace la búsqueda empezando por una dimension y buscando en una única
      * dimensión.
      *
-     * @param dna
-     * @param startDimension
-     * @param direction
-     * @param curCount
+     * @param dna el adn a analizar
+     * @param startDimension sobre que lado de la matriz iniciar (Start.LEFT,
+     * TOP, etc)
+     * @param direction en que sentido buscar. Ejemplo: DIR_LEFT, DIR_RIGHT,
+     * etc.
+     * @param curCount cantidad de matches que hubo hasta ahora
      * @return el número de secuencias de largo mayor a SEQUENCE_LENGTH
      */
     int searchUsingStrategy(String[] dna, Start startDimension, Direction direction, int curCount) {
@@ -339,6 +351,11 @@ public class Mutante {
         return true;
     }
 
+    /**
+     * getter
+     *
+     * @return si es mutante o no
+     */
     public boolean isIsMutantValue() {
         return isMutantValue;
     }
