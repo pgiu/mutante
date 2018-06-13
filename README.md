@@ -134,7 +134,7 @@ Hice pruebas usando www.loader.io y logré servir hasta 1000 peticiones por minu
 En este repo se encuentra el código fuente del proyecto. Para compilarlo y correr los tests automáticos, ejecutar las siguientes líneas.
 
 ````
-mvn 
+mvn install
 cd target
 java -jar mutante-app-0.1.0.jar
 ````
