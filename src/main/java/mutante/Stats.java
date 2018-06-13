@@ -6,12 +6,16 @@ package mutante;
  */
 public class Stats {
 
-    private final long count_mutant_dna;
-    private final long count_human_dna;
+    private long count_mutant_dna;
+    private long count_human_dna;
     private double ratio;
+
+    public Stats() {
+    }
 
     /**
      * Crea una nueva estadística
+     *
      * @param countHumanDNA numero de humanos
      * @param countMutantDNA numero de mutantes
      */
@@ -22,6 +26,7 @@ public class Stats {
 
     /**
      * Devuelve la razón de mutantes del total de ADNs en la base de datos.
+     *
      * @return
      */
     public double getRatio() {
@@ -34,7 +39,7 @@ public class Stats {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public long getCount_mutant_dna() {
